@@ -1,16 +1,21 @@
 const webpack = require('webpack');
 const path = require('path');
 
+// webpack plugins
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = function (env) {
     return {
+        mode: env === 'production'? 'production' : 'development',
         entry: {
             index: './src/js/index.js'
         },
         devtool: 'source-map',
         output: {
-            path: path.join(__dirname, 'assets/js'),
+            path: path.join(__dirname, 'build', 'assets/js'),
             filename: '[name].[hash].js',
-            sourceMapFilename: '[file].[hash].js.map',
+            sourceMapFilename: '[file].map',
             publicPath: '/assets/js/'
         },
         stats: {
@@ -18,9 +23,17 @@ module.exports = function (env) {
             reasons: true,
             chunks: true
         },
+        optimization: {
+            minimizer: env === 'production'? [
+                new UglifyjsWebpackPlugin({
+                    test: /\.js$/
+                })
+            ] : []
+        },
         plugins: [
             new webpack.HashedModuleIdsPlugin(),
-            new webpack.ExtendedAPIPlugin()
+            new webpack.ExtendedAPIPlugin(),
+            new CleanWebpackPlugin(['build'])
         ]
     }
 }

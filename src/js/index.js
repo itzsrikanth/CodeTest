@@ -1,3 +1,3 @@
-var money = require('app');
+var money = require('./app.js');
 
 money();

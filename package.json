@@ -4,7 +4,8 @@
   "description": "Repo to test all libraries",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack-dev": "./node_modules/webpack-cli/bin/cli.js --env=development",
+    "webpack-prod": "./node_modules/webpack-cli/bin/cli.js --env=production"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,10 @@
   "homepage": "https://github.com/itzsrikanth/CodeTest#readme",
   "dependencies": {
     "webpack": "^4.28.3"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.1.1",
+    "webpack-cli": "^3.2.0"
   }
 }
